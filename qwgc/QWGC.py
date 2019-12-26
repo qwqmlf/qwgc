@@ -279,5 +279,6 @@ if __name__ == '__main__':
         accs = qwgc.summary(ans, y_test)
 
         acclist.append(accs)
+        print(accs)
     print('acclist', acclist)
     print('mean', np.mean(acclist))

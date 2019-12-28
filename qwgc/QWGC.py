@@ -13,6 +13,8 @@ from preprocess.qwfilter import QWfilter
 try:
     from utils.notification import Notify
     notify = True
+except Exception:
+    notify = False
 
 THETA_MIN, THETA_MAX = -pi, pi
 

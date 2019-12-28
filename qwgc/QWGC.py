@@ -192,7 +192,10 @@ class QWGC:
     def _get_cost(self, data, label, theta):
         cost = ClassifierCircuit(data, label, theta, self.n_class,
                                  self.layers, self.encoder).cost()
-        return cost + self.lamb*np.sum(theta)
+
+        error = cost + self.lamb*np.sum(theta)
+        print(error)
+        return error
 
     def _get_accuracy(self, data, label, theta):
         answers = ClassifierCircuit(data, label, theta, self.n_class,

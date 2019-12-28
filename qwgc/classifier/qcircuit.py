@@ -82,7 +82,7 @@ class ClassifierCircuit:
         probs = self._get_result(qcs)
         cross = np.mean([self._cross_entropy_error(pb, lb)
                         for pb, lb in zip(probs, self.label)])
-        return cross + np.sum(self.theta)
+        return cross
 
     def answers(self):
         qcs = self._circuit_constructor()

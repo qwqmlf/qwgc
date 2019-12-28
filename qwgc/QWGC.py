@@ -10,6 +10,9 @@ from sklearn.model_selection import KFold
 from classifier.qcircuit import ClassifierCircuit
 from preprocess.qwfilter import QWfilter
 
+try:
+    from utils.notification import Notify
+    notify = True
 
 THETA_MIN, THETA_MAX = -pi, pi
 
@@ -178,6 +181,8 @@ class QWGC:
                                       grobal_best_pos)
             errors.append(error)
             accuracy.append(accs)
+            if t % 10 == 0 and notify:
+                Notify.notify_error(t, error, accs)
         convergence = [errors, accuracy]
         # print(convergence)
         return grobal_best_pos, grobal_best_coin
@@ -255,7 +260,6 @@ def one_hot_encoder(label, n_class):
 if __name__ == '__main__':
     # prepare dataset
     data_name = 'MUTAG'
-    # FIXME debug setting!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!![:10]
     Data = datasets.fetch_dataset(data_name, verbose=False)
     data_x, data_y = np.array(Data.data), np.array(Data.target)
 
@@ -280,5 +284,7 @@ if __name__ == '__main__':
 
         acclist.append(accs)
         print(accs)
+        if notify:
+            Notify.notify_accs(accs)
     print('acclist', acclist)
     print('mean', np.mean(acclist))

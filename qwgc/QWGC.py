@@ -231,6 +231,8 @@ class QWGC:
         for i, j in zip(ans, label):
             if np.argmax(i) == np.argmax(j):
                 count += 1
+        print('answer ', [np.argmax(i) for i in ans])
+        print('label ', [np.argmax(i) for i in label])
         return count/len(label)
 
     @staticmethod
@@ -257,7 +259,10 @@ class QWGC:
 def one_hot_encoder(label, n_class):
     enc_label = [np.zeros(n_class) for _ in label]
     for ilb, lb in enumerate(label):
-        enc_label[ilb][lb] = 1
+        if lb == -1:
+            enc_label[ilb][0] = 1
+        else:
+            enc_label[ilb][lb] = 1
     return enc_label
 
 

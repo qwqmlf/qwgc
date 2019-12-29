@@ -135,12 +135,6 @@ class QWGC:
         errors = []
         accuracy = []
         for t in trange(self.T, desc='training'):
-            ampdata = [QWfilter(coin_u3s[n], self.step,
-                                self.initial).amplitude(train_data)
-                       for n in range(self.n_particle)]
-            n_amp = np.array([[self._zero_fill(amp, 2**theta_size)
-                              for amp in ampdata[n]]
-                              for n in range(self.n_particle)])
             for n in range(self.n_particle):
                 amp = n_amp[n]
                 # random number for personal best pos

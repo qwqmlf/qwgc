@@ -96,7 +96,7 @@ class QWGC:
 
         # initial parameter for Quantum Walk
         # each particle has [theta, phi, lambda]
-        coin_u3s = np.array([[rnd.uniform(THETA_MIN, THETA_MAX)
+        coin_u3s = np.array([[random.uniform(THETA_MIN, THETA_MAX)
                             for i in range(3)]
                             for n in range(self.n_particle)])
 

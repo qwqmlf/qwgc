@@ -96,8 +96,7 @@ class QWGC:
 
         # initial parameter for Quantum Walk
         # each particle has [theta, phi, lambda]
-        coin_u3s = np.array([[random.uniform(THETA_MIN, THETA_MAX)
-                            for i in range(3)]
+        coin_u3s = np.array([[pi/2, pi/self.step, pi]
                             for n in range(self.n_particle)])
 
         ampdata = [QWfilter(coin_u3s[n], self.step,
@@ -145,14 +144,15 @@ class QWGC:
                 # update position
                 particles[n] = particles[n] + velocities[n]
                 # update coin pos
-                coin_u3s[n] = coin_u3s[n] + coin_v[n]
+
+                # coin_u3s[n] = coin_u3s[n] + coin_v[n]
 
                 velocities[n] = (self.w*velocities[n] +
                                  self.Cp*rnp*(personal_bpos[n]-particles[n]) +
                                  self.Cg*rng*(grobal_best_pos-particles[n]))
-                coin_v[n] = (self.w*coin_v[n] +
-                             self.Cp*rnp*(personal_cbpos[n]-coin_u3s[n]) +
-                             self.Cg*rng*(grobal_best_coin-coin_u3s[n]))
+                # coin_v[n] = (self.w*coin_v[n] +
+                #              self.Cp*rnp*(personal_cbpos[n]-coin_u3s[n]) +
+                #              self.Cg*rng*(grobal_best_coin-coin_u3s[n]))
 
                 # calculation cost with updated parameters
                 # and update best position and score
@@ -180,7 +180,6 @@ class QWGC:
             if t % 10 == 0 and notify:
                 Notify.notify_error(t, error, accs)
         convergence = [errors, accuracy]
-        # print(convergence)
         return grobal_best_pos, grobal_best_coin
 
     def _get_cost(self, data, label, theta):

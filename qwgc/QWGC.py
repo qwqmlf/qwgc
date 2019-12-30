@@ -30,7 +30,7 @@ class QWGC:
     '''
 
     def __init__(self, encoder, Cp=1.5, Cg=1.3, n_particle=10, T=100, w=0.8,
-                 ro_max=1.0, n_layer=2, lamb=0.01, n_steps=5, initial='super'):
+                 ro_max=1.0, n_layer=2, lamb=0.005, n_steps=5, initial='super'):
         '''
         Hyper parameters of model.
         Input:
@@ -186,7 +186,7 @@ class QWGC:
         cost = ClassifierCircuit(data, label, theta, self.n_class,
                                  self.layers, self.encoder).cost()
 
-        error = cost + self.lamb*np.sum(theta)
+        error = cost + self.lamb*np.sum([i**2 for i in theta])
         return error
 
     def _get_accuracy(self, data, label, theta):

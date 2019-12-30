@@ -96,7 +96,8 @@ class QWGC:
 
         # initial parameter for Quantum Walk
         # each particle has [theta, phi, lambda]
-        coin_u3s = np.array([[pi/2, pi/self.step, pi]
+        coin_u3s = np.array([[rnd.uniform(THETA_MIN, THETA_MAX)
+                            for i in range(3)]
                             for n in range(self.n_particle)])
 
         ampdata = [QWfilter(coin_u3s[n], self.step,

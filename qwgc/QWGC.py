@@ -29,7 +29,7 @@ class QWGC:
     In this scheme, the type of coin is constantly changing in each iteraions.
     '''
 
-    def __init__(self, encoder, Cp=1.5, Cg=1.3, n_particle=10, T=100, w=0.8,
+    def __init__(self, encoder, Cp=1.5, Cg=1.3, n_particle=20, T=100, w=0.8,
                  ro_max=1.0, n_layer=2, lamb=0.005, n_steps=5, initial='super'):
         '''
         Hyper parameters of model.
@@ -135,6 +135,12 @@ class QWGC:
         errors = []
         accuracy = []
         for t in trange(self.T, desc='training'):
+            ampdata = [QWfilter(coin_u3s[n], self.step,
+                       self.initial).amplitude(train_data)
+                       for n in range(self.n_particle)]
+            n_amp = np.array([[self._zero_fill(amp, 2**theta_size)
+                             for amp in ampdata[n]]
+                             for n in range(self.n_particle)])
             for n in range(self.n_particle):
                 amp = n_amp[n]
                 # random number for personal best pos

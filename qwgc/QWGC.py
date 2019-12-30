@@ -187,6 +187,8 @@ class QWGC:
                                  self.layers, self.encoder).cost()
 
         error = cost + self.lamb*np.sum([i**2 for i in theta])
+        print(self.lamb*np.sum([i**2 for i in theta]))
+        print(cost)
         return error
 
     def _get_accuracy(self, data, label, theta):

@@ -1,5 +1,6 @@
 from qiskit import QuantumCircuit, QuantumRegister, ClassicalRegister
 from qiskit import Aer, execute
+from scipy.special import softmax
 
 import numpy as np
 
@@ -99,8 +100,8 @@ class ClassifierCircuit:
         '''
         job = execute(qcs, backend=QASM, shots=self.shots)
         counts = [job.result().get_counts(qc) for qc in qcs]
-        enc_probs = [np.array([cs.get(i, 0)/self.shots for i in self.encoder])
-                     for cs in counts]
+        dinom = [sum([cs.get(i, 0) for i in self.encoder]) for cs in counts]
+        enc_probs = [np.array([cs.get(i, 0)/din for i in self.encoder]) for cs, din in zip(counts, dinom)]
         return enc_probs
 
     @staticmethod

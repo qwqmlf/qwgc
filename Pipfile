@@ -5,6 +5,7 @@ verify_ssl = true
 
 [dev-packages]
 slackweb = "*"
+twine = "*"
 
 [packages]
 qiskit = "*"
@@ -12,6 +13,7 @@ jupyter = "*"
 tqdm = "*"
 grakel-dev = "==0.1a6"
 toml = "*"
+wheel = "*"
 
 [requires]
 python_version = "3.7"

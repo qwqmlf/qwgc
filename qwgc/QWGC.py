@@ -30,7 +30,8 @@ class QWGC:
     '''
 
     def __init__(self, encoder, Cp=1.8, Cg=1.3, n_particle=20, T=100, w=0.8,
-                 ro_max=1.0, n_layer=2, lamb=0.005, n_steps=5, initial='super'):
+                 ro_max=1.0, n_layer=2, lamb=0.005, n_steps=5,
+                 initial='super', **kwargs):
         '''
         Hyper parameters of model.
         Input:
@@ -54,7 +55,6 @@ class QWGC:
             lamb: float (constant value of coefficient
                         for the sum of square in error)
             n_steps: int (the number of steps of Quantum walk)
-
         '''
         self.encoder = encoder
         self.Cp = Cp
@@ -268,6 +268,12 @@ def one_hot_encoder(label, n_class):
 
 if __name__ == '__main__':
     # prepare dataset
+    import toml
+    # parsing parameters from toml
+    config = toml.load('experiments.toml')
+    p_pso = config['pso']
+    p_qw = config['qw']
+
     data_name = 'MUTAG'
     Data = datasets.fetch_dataset(data_name, verbose=False)
     data_x, data_y = np.array(Data.data), np.array(Data.target)
@@ -275,7 +281,12 @@ if __name__ == '__main__':
     acclist = []
     k = 5
     kf = KFold(n_splits=k, shuffle=True)
-    qwgc = QWGC(['01', '10'])
+
+    qwgc = QWGC(['01', '10'], Cp=p_pso['Cp'], Cg=p_pso['Cg'],
+                n_particle=p_pso['particles'], T=p_pso['iterations'],
+                w=p_pso['w'], ro_max=p_pso['random_max'],
+                n_layer=p_pso['layers'], lamb=p_pso['lambda'],
+                n_steps=p_qw['steps'], initial=p_qw['initial'])
     for train_index, test_index in kf.split(data_x):
         # preprocessing for generating data.
         x_train, y_train = data_x[train_index], data_y[train_index]

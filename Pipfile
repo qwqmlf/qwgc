@@ -11,6 +11,7 @@ qiskit = "*"
 jupyter = "*"
 tqdm = "*"
 grakel-dev = "==0.1a6"
+toml = "*"
 
 [requires]
 python_version = "3.7"

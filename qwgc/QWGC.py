@@ -29,7 +29,7 @@ class QWGC:
     In this scheme, the type of coin is constantly changing in each iteraions.
     '''
 
-    def __init__(self, encoder, Cp=1.5, Cg=1.3, n_particle=20, T=100, w=0.8,
+    def __init__(self, encoder, Cp=1.8, Cg=1.3, n_particle=20, T=100, w=0.8,
                  ro_max=1.0, n_layer=2, lamb=0.005, n_steps=5, initial='super'):
         '''
         Hyper parameters of model.

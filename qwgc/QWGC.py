@@ -157,6 +157,7 @@ class QWGC:
                 velocities[n] = (self.w*velocities[n] +
                                  self.Cp*rnp*(personal_bpos[n]-particles[n]) +
                                  self.Cg*rng*(grobal_best_pos-particles[n]))
+
                 coin_v[n] = (self.w*coin_v[n] +
                              self.Cp*rnp*(personal_cbpos[n]-coin_u3s[n]) +
                              self.Cg*rng*(grobal_best_coin-coin_u3s[n]))
@@ -282,7 +283,7 @@ if __name__ == '__main__':
     k = 5
     kf = KFold(n_splits=k, shuffle=True)
 
-    qwgc = QWGC(['01', '10'], Cp=p_pso['Cp'], Cg=p_pso['Cg'],
+    qwgc = QWGC(['0', '1'], Cp=p_pso['Cp'], Cg=p_pso['Cg'],
                 n_particle=p_pso['particles'], T=p_pso['iterations'],
                 w=p_pso['w'], ro_max=p_pso['random_max'],
                 n_layer=p_pso['layers'], lamb=p_pso['lambda'],

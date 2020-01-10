@@ -8,7 +8,7 @@ The key ideas of quantum machine learning and quantum walk are [here]().
 
 ## How to install
 
-pip install qwgc
+`pip install qwgc`
 
 ## Tutorials
 

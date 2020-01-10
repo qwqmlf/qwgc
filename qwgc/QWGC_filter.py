@@ -192,7 +192,7 @@ class QWGC_filter:
             if t % 10 == 0 and notify:
                 Notify.notify_error(t, error, accs)
         convergence = [errors, accuracy]
-        return grobal_best_pos, grobal_best_coin
+        return grobal_best_pos, grobal_best_coin, convergence
 
     def _get_cost(self, data, label, theta):
         cost = ClassifierCircuit(data, label, theta, self.n_class,
@@ -301,7 +301,7 @@ if __name__ == '__main__':
         y_train = one_hot_encoder(y_train, 2)
         y_test = one_hot_encoder(y_test, 2)
 
-        theta, coin_param = qwgc.optimize(x_train, y_train)
+        theta, coin_param, conv = qwgc.optimize(x_train, y_train)
         # test
         ans = qwgc.test(x_test, theta, coin_param)
         # evaluate
@@ -310,6 +310,6 @@ if __name__ == '__main__':
         acclist.append(accs)
         print(accs)
         if notify:
-            Notify.notify_accs(accs)
+            Notify.notify_accs(accs, conv)
     print('acclist', acclist)
     print('mean', np.mean(acclist))

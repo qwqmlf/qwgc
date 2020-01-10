@@ -56,6 +56,8 @@ class QWGC:
                         for the sum of square in error)
             n_steps: int (the number of steps of Quantum walk)
         '''
+        if len(encoder[0]) != n_layer:
+            raise ValueError('The size of encoder is different from the number of layers')
         self.encoder = encoder
         self.Cp = Cp
         self.Cg = Cg
@@ -283,7 +285,7 @@ if __name__ == '__main__':
     k = 5
     kf = KFold(n_splits=k, shuffle=True)
 
-    qwgc = QWGC(['0', '1'], Cp=p_pso['Cp'], Cg=p_pso['Cg'],
+    qwgc = QWGC(['010', '101'], Cp=p_pso['Cp'], Cg=p_pso['Cg'],
                 n_particle=p_pso['particles'], T=p_pso['iterations'],
                 w=p_pso['w'], ro_max=p_pso['random_max'],
                 n_layer=p_pso['layers'], lamb=p_pso['lambda'],

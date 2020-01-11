@@ -101,8 +101,7 @@ class QWGC:
         # coin_u3s = np.array([[random.uniform(THETA_MIN, THETA_MAX)
         #                     for i in range(3)]
         #                     for n in range(self.n_particle)])
-        coin_u3s = np.array([[random.uniform(THETA_MIN, THETA_MAX)
-                            for i in range(3)]
+        coin_u3s = np.array([[pi, pi/2, pi/self.step]
                             for n in range(self.n_particle)])
 
         ampdata = [QWfilter(coin_u3s[n], self.step,
@@ -121,7 +120,7 @@ class QWGC:
                              for n in range(self.n_particle)])
         velocities = np.array([np.zeros(theta_size)
                               for n in range(self.n_particle)])
-        coin_v = np.array([np.zeros(3) for n in range(self.n_particle)])
+        # coin_v = np.array([np.zeros(3) for n in range(self.n_particle)])
 
         # for recording best positions of each particle
         personal_bpos = copy.copy(particles)
@@ -157,15 +156,15 @@ class QWGC:
                 particles[n] = particles[n] + velocities[n]
                 # update coin pos
 
-                coin_u3s[n] = coin_u3s[n] + coin_v[n]
+                # coin_u3s[n] = coin_u3s[n] + coin_v[n]
 
                 velocities[n] = (self.w*velocities[n] +
                                  self.Cp*rnp*(personal_bpos[n]-particles[n]) +
                                  self.Cg*rng*(grobal_best_pos-particles[n]))
 
-                coin_v[n] = (self.w*coin_v[n] +
-                             self.Cp*rnp*(personal_cbpos[n]-coin_u3s[n]) +
-                             self.Cg*rng*(grobal_best_coin-coin_u3s[n]))
+                # coin_v[n] = (self.w*coin_v[n] +
+                #              self.Cp*rnp*(personal_cbpos[n]-coin_u3s[n]) +
+                #              self.Cg*rng*(grobal_best_coin-coin_u3s[n]))
 
                 # calculation cost with updated parameters
                 # and update best position and score
@@ -288,7 +287,7 @@ if __name__ == '__main__':
     k = 5
     kf = KFold(n_splits=k, shuffle=True)
 
-    qwgc = QWGC(['010', '101'], Cp=p_pso['Cp'], Cg=p_pso['Cg'],
+    qwgc = QWGC(['01', '10'], Cp=p_pso['Cp'], Cg=p_pso['Cg'],
                 n_particle=p_pso['particles'], T=p_pso['iterations'],
                 w=p_pso['w'], ro_max=p_pso['random_max'],
                 n_layer=p_pso['layers'], lamb=p_pso['lambda'],

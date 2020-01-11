@@ -156,15 +156,15 @@ class QWGC:
                 particles[n] = particles[n] + velocities[n]
                 # update coin pos
 
-                coin_u3s[n] = coin_u3s[n] + coin_v[n]
+                # coin_u3s[n] = coin_u3s[n] + coin_v[n]
 
                 velocities[n] = (self.w*velocities[n] +
                                  self.Cp*rnp*(personal_bpos[n]-particles[n]) +
                                  self.Cg*rng*(grobal_best_pos-particles[n]))
 
-                coin_v[n] = (self.w*coin_v[n] +
-                             self.Cp*rnp*(personal_cbpos[n]-coin_u3s[n]) +
-                             self.Cg*rng*(grobal_best_coin-coin_u3s[n]))
+                # coin_v[n] = (self.w*coin_v[n] +
+                #              self.Cp*rnp*(personal_cbpos[n]-coin_u3s[n]) +
+                #              self.Cg*rng*(grobal_best_coin-coin_u3s[n]))
 
                 # calculation cost with updated parameters
                 # and update best position and score
@@ -172,7 +172,7 @@ class QWGC:
                 if score < personal_best_scores[n]:
                     personal_best_scores[n] = score
                     personal_bpos[n] = particles[n]
-                    personal_cbpos[n] = coin_u3s[n]
+                    # personal_cbpos[n] = coin_u3s[n]
 
             # in all particles, calculate which is the best particle
             # and coin parameters

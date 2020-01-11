@@ -98,8 +98,10 @@ class QWGC:
 
         # initial parameter for Quantum Walk
         # each particle has [theta, phi, lambda]
-        coin_u3s = np.array([[random.uniform(THETA_MIN, THETA_MAX)
-                            for i in range(3)]
+        # coin_u3s = np.array([[random.uniform(THETA_MIN, THETA_MAX)
+        #                     for i in range(3)]
+        #                     for n in range(self.n_particle)])
+        coin_u3s = np.array([[pi, pi/2, pi/self.step]
                             for n in range(self.n_particle)])
 
         ampdata = [QWfilter(coin_u3s[n], self.step,
@@ -234,8 +236,8 @@ class QWGC:
         for i, j in zip(ans, label):
             if np.argmax(i) == np.argmax(j):
                 count += 1
-        print('answer ', [np.argmax(i) for i in ans])
-        print('label ', [np.argmax(i) for i in label])
+        # print('answer ', [np.argmax(i) for i in ans])
+        # print('label ', [np.argmax(i) for i in label])
         return count/len(label)
 
     @staticmethod

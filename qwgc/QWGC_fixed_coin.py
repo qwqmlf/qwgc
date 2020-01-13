@@ -57,7 +57,8 @@ class QWGC:
             n_steps: int (the number of steps of Quantum walk)
         '''
         if len(encoder[0]) != n_layer:
-            raise ValueError('The size of encoder is different from the number of layers')
+            raise ValueError('The size of encoder is different\
+                             from the number of layers')
         self.encoder = encoder
         self.Cp = Cp
         self.Cg = Cg

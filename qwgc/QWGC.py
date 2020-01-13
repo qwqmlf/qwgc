@@ -57,7 +57,8 @@ class QWGC:
             n_steps: int (the number of steps of Quantum walk)
         '''
         if len(encoder[0]) != n_layer:
-            raise ValueError('The size of encoder is different from the number of layers')
+            raise ValueError('The size of encoder is different\
+                             from the number of layers')
         self.encoder = encoder
         self.Cp = Cp
         self.Cg = Cg
@@ -101,7 +102,8 @@ class QWGC:
         # coin_u3s = np.array([[random.uniform(THETA_MIN, THETA_MAX)
         #                     for i in range(3)]
         #                     for n in range(self.n_particle)])
-        coin_u3s = np.array([[random.uniform(THETA_MIN, THETA_MAX), pi/self.step, pi/self.step]
+        coin_u3s = np.array([[random.uniform(THETA_MIN, THETA_MAX),
+                              pi/self.step, pi/self.step]
                             for n in range(self.n_particle)])
 
         ampdata = [QWfilter(coin_u3s[n], self.step,

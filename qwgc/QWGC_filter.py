@@ -93,8 +93,9 @@ class QWGC_filter:
         '''
         self.n_class = len(train_label[0])
         if self.n_class > 2**self.layers:
-            raise ValueError('the number of class must be less than 2^layers')
-            
+            raise ValueError('the number of class must be\
+                             less than 2^layers')
+
         # initial parameter for Quantum Walk
         # each particle has [theta, phi, lambda]
         coin_u3s = np.array([[random.uniform(THETA_MIN, THETA_MAX)

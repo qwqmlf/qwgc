@@ -9,4 +9,4 @@ install:
 
 script:
   - pytest
-  - pycodestyle .
+  - pycodestyle qwgc/*

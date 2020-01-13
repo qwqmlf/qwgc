@@ -3,6 +3,7 @@ from qiskit import Aer, execute
 from scipy.special import softmax
 
 import numpy as np
+from numpy import pi
 
 QASM = Aer.get_backend('qasm_simulator')
 
@@ -69,6 +70,9 @@ class ClassifierCircuit:
         for ith, theta in enumerate(self.theta):
             if ith % self.layers == 0:
                 qc.cu3(theta, pi/4, pi/4,  qr[ith], mp[ith % self.layers])
+        for iqmp, qmp in enumerate(mp[:-1]):
+            qc.cx(qmp, mp[iqmp+1])
+
             # else:
             #     qc.h(mp[ith%self.layers])
             #     qc.crz(theta, qr[ith], mp[ith % self.layers])

@@ -1,5 +1,6 @@
 
 # qwgc
+[![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 
 qwgc is stand for *Q*uantum *W*alk *G*raph *C*lassifier.
 This project aim to classify graph data with high accuracy.

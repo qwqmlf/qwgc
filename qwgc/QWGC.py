@@ -16,7 +16,7 @@ try:
 except Exception:
     notify = False
 
-THETA_MIN, THETA_MAX = 0, 2*pi
+THETA_MIN, THETA_MAX = -pi, pi
 
 
 class QWGC:

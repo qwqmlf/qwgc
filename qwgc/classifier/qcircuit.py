@@ -66,14 +66,14 @@ class ClassifierCircuit:
         return qcs
 
     def _map(self, qc, qr, mp):
-        counter = 0
+        # counter = 0
         for ith, theta in enumerate(self.theta):
-            if ith % self.layers == 0:
-                qc.cry(theta, qr[ith], mp[ith % self.layers])
-            else:
-                qc.h(mp[ith%self.layers])
-                qc.cu3(theta, pi/2, pi/2, qr[ith], mp[ith % self.layers])
-                qc.h(mp[ith%self.layers])
+            # if ith % self.layers == 0:
+            qc.cry(theta, qr[ith], mp[ith % self.layers])
+            # else:
+            #     qc.h(mp[ith%self.layers])
+            #     qc.cu3(theta, pi/2, pi/2, qr[ith], mp[ith % self.layers])
+            #     qc.h(mp[ith%self.layers])
         return qc
 
     def cost(self):

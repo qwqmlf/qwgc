@@ -34,6 +34,23 @@ class QWfilter:
 
             amplitude.append(qwalk.calc_amp())
         return amplitude
+  
+    def single_amplitude(self, d):
+        ad = Graph(d[0]).get_adjacency_matrix()
+        count = np.count_nonzero(ad)//2
+        nad = len(ad)
+
+        # prepare coin with u3 parameter
+        coin = self._compose_coins(count, ad)
+        # prepare initial state
+        initial_state = self._initial(count, nad)
+
+        # construct quantum walk and go n steps
+        qwalk = QuantumWalk(initial_state, coin, ad)
+        qwalk.n_steps(self.step)
+
+        return qwalk.calc_amp()
+
 
     def _compose_coins(self, count, adja):
         '''

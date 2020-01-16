@@ -12,6 +12,12 @@ from sklearn import svm
 
 from preprocess.qwfilter import QWfilter
 
+try:
+    from utils.notification import Notify
+    notify = True
+except Exception:
+    notify = False
+
 step = 5
 
 THETA_MIN, THETA_MAX = -pi, pi
@@ -40,6 +46,7 @@ def qw_kernel(train_data, train_label, lam=1):
     # to check convergence of error, prepare this list
 
     weights = np.zeros(ld)
+    print('training start!')
     for _ in trange(iteration):
         it = random.randint(0, ld)
         decision = 0
@@ -52,11 +59,12 @@ def qw_kernel(train_data, train_label, lam=1):
 
 
 def test(x_train, y_train, x_test, y_test, weights):
+    print('test start!')
     errors = 0
-    for ila, lb_test in enumerate(y_test):
+    for ila, lb_test in tqdm(enumerate(y_test)):
         decision = 0
         for ilb, lb_train in enumerate(y_train):
-            decision += weights[ilb]*y_train[ilb]*_kernel_function(x_train[ilb], x_test[ila])
+            decision += weights[ilb]*y_train[ilb]*_kernel_function(x_train[ilb], x_test[ila], 7)
         if decision < 0:
             prediction = -1
         else:
@@ -122,8 +130,20 @@ if __name__ == '__main__':
 
     k = 5
     kf = KFold(n_splits=k, shuffle=True)
+    accuracy = []
     for train_index, test_index in kf.split(data_x):
         # preprocessing for generating data.
         x_train, y_train = data_x[train_index], data_y[train_index]
         x_test, y_test = data_x[test_index], data_y[test_index]
         weight = qw_kernel(x_train, y_train)
+        accs = test(x_train, y_train, x_test, y_test, weight)
+        print(accs)
+        if notify:
+            Notify.notify_accs(accs, 'svm')
+        accuracy.append(accs)
+     Notify.notify_accs(accuracy, 'K5 result')
+     Notify.notify_accs(np.mean(accuracy), 'K5 result mean')
+     print(accuracy)
+     print(np.mean(accuracy))
+
+    

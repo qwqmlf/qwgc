@@ -141,9 +141,9 @@ if __name__ == '__main__':
         if notify:
             Notify.notify_accs(accs, 'svm')
         accuracy.append(accs)
-     Notify.notify_accs(accuracy, 'K5 result')
-     Notify.notify_accs(np.mean(accuracy), 'K5 result mean')
-     print(accuracy)
-     print(np.mean(accuracy))
+    Notify.notify_accs(accuracy, 'K5 result')
+    Notify.notify_accs(np.mean(accuracy), 'K5 result mean')
+    print(accuracy)
+    print(np.mean(accuracy))
 
     

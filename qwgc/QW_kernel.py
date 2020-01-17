@@ -61,7 +61,7 @@ def qw_kernel(train_data, train_label, lam=1):
 def test(x_train, y_train, x_test, y_test, weights):
     print('test start!')
     errors = 0
-    for ila, lb_test in tqdm(enumerate(y_test)):
+    for ila, lb_test in enumerate(y_test):
         decision = 0
         for ilb, lb_train in enumerate(y_train):
             decision += weights[ilb]*y_train[ilb]*_kernel_function(x_train[ilb], x_test[ila], 7)

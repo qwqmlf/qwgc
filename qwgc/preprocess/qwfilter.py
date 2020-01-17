@@ -48,8 +48,8 @@ class QWfilter:
         # construct quantum walk and go n steps
         qwalk = QuantumWalk(initial_state, coin, ad)
         qwalk.n_steps(self.step)
-
-        return qwalk.calc_amp()
+        amplitude = qwalk.calc_amp()
+        return amplitude
 
 
     def _compose_coins(self, count, adja):

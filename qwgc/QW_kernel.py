@@ -45,11 +45,15 @@ def qw_kernel(train_data, train_label, lam=1):
     # to check convergence of error, prepare this list
     weights = np.zeros(ld)
     print('training start!')
-    for i in range(iteration):
+    for i in trange(iteration):
         it = random.randint(0, ld)
         decision = 0
         for j in range(it):
-            decision += weights[j] * train_label[it] * _kernel_function(train_data[it], train_data[j], 7)
+            # FIXME ambiguous error message
+            try:
+                decision += weights[j] * train_label[it] * _kernel_function(train_data[it], train_data[j], 7)
+            except ValueError:
+                continue
         decision *= train_label[it]/lam
         if decision < 1:
             weights[it] += 1
@@ -59,7 +63,7 @@ def qw_kernel(train_data, train_label, lam=1):
 def test(x_train, y_train, x_test, y_test, weights):
     print('test start!')
     errors = 0
-    for ila, lb_test in enumerate(y_test):
+    for ila, lb_test in tqdm(enumerate(y_test)):
         decision = 0
         for ilb, lb_train in enumerate(y_train):
             decision += weights[ilb]*y_train[ilb]*_kernel_function(x_train[ilb], x_test[ila], 7)

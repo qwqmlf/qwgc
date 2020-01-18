@@ -41,13 +41,11 @@ def qw_kernel(train_data, train_label, lam=1):
         coin_param: ?
     '''
     ld = len(train_data)
-
     # start training
     # to check convergence of error, prepare this list
-
     weights = np.zeros(ld)
     print('training start!')
-    for _ in trange(iteration):
+    for i in range(iteration):
         it = random.randint(0, ld)
         decision = 0
         for j in range(it):
@@ -145,5 +143,3 @@ if __name__ == '__main__':
     Notify.notify_accs(np.mean(accuracy), 'K5 result mean')
     print(accuracy)
     print(np.mean(accuracy))
-
-    

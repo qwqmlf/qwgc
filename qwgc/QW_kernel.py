@@ -21,7 +21,7 @@ except Exception:
 step = 5
 THETA_MIN, THETA_MAX = -pi, pi
 C = 10
-iteration = 100
+iteration = 500
 backend = Aer.get_backend('qasm_simulator')
 shots = 1024
 

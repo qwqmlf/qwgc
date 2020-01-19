@@ -46,9 +46,8 @@ def qw_kernel(train_data, train_label, lam=1):
     weights = np.zeros(ld)
     print('training start!')
     for i in trange(iteration):
-        it = random.randint(0, ld)
+        it = random.randint(0, ld-1)
         decision = 0
-        print(it)
         for j in range(it):
             # FIXME ambiguous error message
             try:

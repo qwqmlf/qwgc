@@ -48,6 +48,7 @@ def qw_kernel(train_data, train_label, lam=1):
     for i in trange(iteration):
         it = random.randint(0, ld)
         decision = 0
+        print(it)
         for j in range(it):
             # FIXME ambiguous error message
             try:

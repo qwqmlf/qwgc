@@ -18,10 +18,9 @@ try:
 except Exception:
     notify = False
 
-step = 5
+step = 3
 THETA_MIN, THETA_MAX = -pi, pi
-C = 10
-iteration = 500
+iteration = 200
 backend = Aer.get_backend('qasm_simulator')
 shots = 1024
 

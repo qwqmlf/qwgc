@@ -76,7 +76,7 @@ def test(x_train, y_train, x_test, y_test, weights):
 
 def _kernel_function(x, y, qsize):
     # definition of coin
-    coin_u3s = np.array([pi/step, 0, pi/2])
+    coin_u3s = np.array([pi, 0, pi/2])
 
     ampdata_x = QWfilter(coin_u3s, step, 'super').single_amplitude(x)
     x_amp = _zero_fill(ampdata_x, 2**qsize)

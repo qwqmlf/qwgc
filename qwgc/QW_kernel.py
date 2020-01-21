@@ -29,7 +29,7 @@ This is just very prototype code
 '''
 
 
-def qw_kernel(train_data, train_label, lam=1):
+def qw_kernel(train_data, train_label, lam=2):
     '''
     Input:
         train_data: 2dim array (a series of training data)

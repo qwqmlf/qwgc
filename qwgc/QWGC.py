@@ -153,6 +153,8 @@ class QWGC:
                 rnp = random.uniform(0, self.ro_max)
                 # random number for grobal best
                 rng = random.uniform(0, self.ro_max)
+                rnp_c = random.uniform(0, self.ro_max)
+                rng_c = random.uniform(0, self.ro_max)
 
                 # update position
                 particles[n] = particles[n] + velocities[n]
@@ -165,8 +167,8 @@ class QWGC:
                                  self.Cg*rng*(grobal_best_pos-particles[n]))
 
                 coin_v[n] = (self.w*coin_v[n] +
-                             self.Cp*rnp*(personal_cbpos[n]-coin_u3s[n]) +
-                             self.Cg*rng*(grobal_best_coin-coin_u3s[n]))
+                             self.Cp*rnp_c*(personal_cbpos[n]-coin_u3s[n]) +
+                             self.Cg*rng_c*(grobal_best_coin-coin_u3s[n]))
 
                 # calculation cost with updated parameters
                 # and update best position and score

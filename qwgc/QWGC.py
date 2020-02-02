@@ -288,7 +288,7 @@ if __name__ == '__main__':
     data_x, data_y = np.array(Data.data), np.array(Data.target)
 
     acclist = []
-    k = 5
+    k = 10
     kf = KFold(n_splits=k, shuffle=True)
 
     qwgc = QWGC(['01', '10'], Cp=p_pso['Cp'], Cg=p_pso['Cg'],

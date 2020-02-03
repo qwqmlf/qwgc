@@ -11,5 +11,5 @@ layers = 2
 lambda = 0.0001
 
 [qw]
-steps = 9
+steps = 5
 initial = 'super'

@@ -4,26 +4,13 @@ url = "https://pypi.org/simple"
 verify_ssl = true
 
 [dev-packages]
-slackweb = "*"
-twine = "*"
-pydocstyle = "*"
-h5py = "*"
-isort = "*"
 
 [packages]
 qiskit = "*"
-jupyter = "*"
-tqdm = "*"
-grakel-dev = "==0.1a6"
-toml = "*"
-wheel = "*"
-pytest = "*"
-matplotlib = "*"
-jupytext = "*"
 sklearn = "*"
+tqdm = "*"
 umap-learn = "*"
-scipy = "*"
-isort = "*"
+grakel-dev = "==0.1a6"
 
 [requires]
 python_version = "3.7"

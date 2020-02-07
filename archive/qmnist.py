@@ -81,7 +81,7 @@ class QMNIST:
             emp_x = np.array([ct.get(b, 0)/SHOTS for b in self.encoder])
             err = self._error_func(emp_x, np.array(y))
             errors.append(err)
-        return np.mean(errors) + self.alpha*np.sum([i**2 for i in theta])
+        return np.mean(errors)
 
     def _get_counts(self, x, theta):
         qcs = self._classifier(x, theta)
@@ -107,20 +107,19 @@ class QMNIST:
         for xt in x:
             dataq = QuantumRegister(ld)
             c = ClassicalRegister(ld)
-            mapq = QuantumRegister(4)
-            qc = QuantumCircuit(dataq, mapq, c)
+            qc = QuantumCircuit(dataq, c)
             for xd, qr in zip(xt, dataq):
-                # qc.h(qr)
-                qc.ry(self._map_func(xd), qr)
-                # qc.h(qr)
-                # qc.rz(self._map_func(xd), qr)
+                qc.h(qr)
+                qc.rz(self._map_func(xd), qr)
+                qc.h(qr)
+                qc.rz(self._map_func(xd), qr)
             # anzatz
             for ith, th in enumerate(theta):
-                qc.cry(th, dataq[ith], mapq[ith])
-            # for ids, d in enumerate(dataq[:-1]):
-            #     qc.cz(d, dataq[ids+1])
-            # qc.cz(dataq[0], dataq[-1])
-            qc.measure(mapq, c)
+                qc.ry(th, dataq[ith])
+            for ids, d in enumerate(dataq[:-1]):
+                qc.cz(d, dataq[ids+1])
+            qc.cz(dataq[0], dataq[-1])
+            qc.measure(dataq, c)
             qcs.append(qc)
         return qcs
 
@@ -162,18 +161,22 @@ if __name__ == '__main__':
     #                  '0001000000', '0010000000',
     #                  '0100000000', '1000000000'])
 
-    qmnist = QMNIST(['0000', '1000',
-                     '0001', '1001',
-                     '0010', '1010',
-                     '0100', '1101',
-                     '0101', '1111'])
+    # qmnist = QMNIST(['0000', '1000',
+    #                  '0001', '1001',
+    #                  '0010', '1010',
+    #                  '0100', '1101',
+    #                  '0101', '1111'])
 
+    qmnist = QMNIST(['01', '10'])
     onhot_labels = []
     for i in digits.target:
-        lab = [0 for _ in range(10)]
-        lab[int(i)] = 1
-        onhot_labels.append(lab)
-    reducer = umap.UMAP(n_components=4)
+        lab = [0 for _ in range(2)]
+        try:
+            lab[int(i)] = 1
+            onhot_labels.append(lab)
+        except:
+            continue
+    reducer = umap.UMAP(n_components=2)
     reducer.fit(digits.data)
     embedding = reducer.transform(digits.data)
     # Verify that the result of calling transform is

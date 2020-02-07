@@ -12,7 +12,16 @@ The key ideas of quantum machine learning and quantum walk are [here]().
 
 ## How to install
 
-`pip install qwgc`
+First, clone remote repository to your local.
+
+`git clone https://github.com/qwqmlf/qwgc.git`
+
+and then,
+
+`cd qwgc`
+`pip install .`
+
+If you don't have any errors, your build is success.
 
 ## Tutorials
 

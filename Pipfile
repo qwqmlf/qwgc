@@ -8,7 +8,7 @@ slackweb = "*"
 twine = "*"
 pydocstyle = "*"
 h5py = "*"
-v = {editable = true,version = "*"}
+isort = "*"
 
 [packages]
 qiskit = "*"
@@ -23,6 +23,7 @@ jupytext = "*"
 sklearn = "*"
 umap-learn = "*"
 scipy = "*"
+isort = "*"
 
 [requires]
 python_version = "3.7"

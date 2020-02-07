@@ -195,6 +195,8 @@ class QWGC:
             accuracy.append(accs)
             if t % 10 == 0 and notify:
                 Notify.notify_error(t, error, accs)
+            if error < 0.41:
+                break
         convergence = [errors, accuracy]
         return grobal_best_pos, grobal_best_coin, convergence
 
@@ -289,7 +291,7 @@ if __name__ == '__main__':
 
     acclist = []
     k = 10
-    kf = KFold(n_splits=k, shuffle=True)
+    kf = KFold(n_splits=k)
 
     qwgc = QWGC(['01', '10'], Cp=p_pso['Cp'], Cg=p_pso['Cg'],
                 n_particle=p_pso['particles'], T=p_pso['iterations'],

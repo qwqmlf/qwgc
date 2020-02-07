@@ -5,7 +5,7 @@ with open('requirements.txt', 'r') as f:
 
 setup(
     name="qwgc",
-    version="0.0.1",
+    version="0.0.2",
     description="Graph classifier based on quantum walk",
     long_description="qwgc is a quantum walk graph classifier to classify"
                      "graph data. Works with Python 3.5, 3.6, and 3.7",

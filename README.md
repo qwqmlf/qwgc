@@ -7,7 +7,7 @@
 
 qwgc is stand for *Q*uantum *W*alk *G*raph *C*lassifier.
 This project aim to classify graph data with high accuracy.
-The key ideas of quantum machine learning and quantum walk are [here]().
+The key ideas of quantum machine learning and quantum walk are [here](https://qwqmlft.github.io/QuantumFrontier).
 <!-- put the link to our web site -->
 
 ## How to install
@@ -22,6 +22,18 @@ and then,
 `pip install .`
 
 If you don't have any errors, your build is success.
+
+## pipenv environment
+
+If you have trouble with installing qwgc, you can use virtual environment easily with *[pipenv](https://github.com/pypa/pipenv)*.
+
+You can install pipenv via`pip` or package manager of your OS (brew etc... detail:https://github.com/pypa/pipenv)
+
+`pip install pipenv`
+`cd qwgc`
+`pipenv install`
+
+and then you can all dependencies in your virtual environment.
 
 ## Tutorials
 

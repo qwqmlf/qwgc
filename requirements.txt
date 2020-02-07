@@ -75,7 +75,6 @@ pyscf==1.7.0 ; sys_platform != 'win32'
 pytest==5.3.5
 python-dateutil==2.8.1
 pytz==2019.3
-pyyaml==5.3
 pyzmq==18.1.1
 qiskit-aer==0.3.4
 qiskit-aqua==0.6.2

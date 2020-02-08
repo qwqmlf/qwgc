@@ -11,6 +11,8 @@ sklearn = "*"
 tqdm = "*"
 umap-learn = "*"
 grakel-dev = "==0.1a6"
+autopep8 = "*"
+seaborn = "*"
 
 [requires]
 python_version = "3.7"

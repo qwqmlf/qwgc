@@ -56,7 +56,7 @@ class QuantumWalk:
 
     @property
     def node_deg(self):
-        return [int(np.sum(adj[i])) for i in range(self.dim)]
+        return [int(np.sum(self.adjacency[i])) for i in range(self.dim)]
 
     def prob_at_node(self, index):
         if index > self.dim:
@@ -65,7 +65,6 @@ class QuantumWalk:
         return probs[index]
 
     def calc_probs(self):
-        node_deg = self.node_deg
         probs = np.zeros(self.dim)
         ind = 0
         for i in range(self.dim):

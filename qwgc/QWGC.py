@@ -7,8 +7,13 @@ from tqdm import trange
 from grakel import datasets
 from sklearn.model_selection import KFold
 
-from classifier.qcircuit import ClassifierCircuit
-from preprocess.qwfilter import QWfilter
+try:
+    # FIXME 
+    from .classifier.qcircuit import ClassifierCircuit
+    from .preprocess.qwfilter import QWfilter
+except ImportError:
+    from classifier.qcircuit import ClassifierCircuit
+    from preprocess.qwfilter import QWfilter
 
 try:
     from utils.notification import Notify

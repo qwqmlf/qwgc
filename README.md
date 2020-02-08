@@ -12,13 +12,15 @@ The key ideas of quantum machine learning and quantum walk are [here](https://qw
 
 ## How to install
 
+**!!!!This installation might not work properly.**
+
 First, clone remote repository to your local.
 
 `git clone https://github.com/qwqmlf/qwgc.git`
 
 and then,
 
-`cd qwgc`
+`cd qwgc`  
 `pip install .`
 
 If you don't have any errors, your build is success.
@@ -29,8 +31,8 @@ If you have trouble with installing qwgc, you can use virtual environment easily
 
 You can install pipenv via`pip` or package manager of your OS (brew etc... detail:https://github.com/pypa/pipenv)
 
-`pip install pipenv`
-`cd qwgc`
+`pip install pipenv`  
+`cd qwgc`  
 `pipenv install`
 
 and then you can all dependencies in your virtual environment.

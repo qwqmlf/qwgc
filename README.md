@@ -20,8 +20,10 @@ First, clone remote repository to your local.
 
 and then,
 
-`cd qwgc`  
-`pip install .`
+```
+cd qwgc
+pip install .
+```
 
 If you don't have any errors, your build is success.
 
@@ -31,9 +33,11 @@ If you have trouble with installing qwgc, you can use virtual environment easily
 
 You can install pipenv via`pip` or package manager of your OS (brew etc... detail:https://github.com/pypa/pipenv)
 
-`pip install pipenv`  
-`cd qwgc`  
-`pipenv install`
+```
+pip install pipenv
+cd qwgc
+pipenv install
+```
 
 and then you can all dependencies in your virtual environment.
 
@@ -41,11 +45,8 @@ and then you can all dependencies in your virtual environment.
 
 [experiments.toml](https://github.com/qwqmlf/qwgc/blob/master/qwgc/experiments.toml) is the configuration (Hyper parameter) for QWGC.
 
-Put hyper parameter and then run  
-
-`python QWGC.py`  
-
-You can simulate our algorithm.
+Put hyper parameter and then run
+`python QWGC.py`
 
 ## Tutorials
 
@@ -54,4 +55,3 @@ You can simulate our algorithm.
 ## Acknowledgement
 
 This project is supported by IPA mitou target project.
-

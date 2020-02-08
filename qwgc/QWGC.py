@@ -303,6 +303,7 @@ if __name__ == '__main__':
                 w=p_pso['w'], ro_max=p_pso['random_max'],
                 n_layer=p_pso['layers'], lamb=p_pso['lambda'],
                 n_steps=p_qw['steps'], initial=p_qw['initial'])
+
     for train_index, test_index in kf.split(data_x):
         # preprocessing for generating data.
         x_train, y_train = data_x[train_index], data_y[train_index]

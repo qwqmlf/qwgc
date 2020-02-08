@@ -13,6 +13,7 @@ umap-learn = "*"
 grakel-dev = "==0.1a6"
 autopep8 = "*"
 seaborn = "*"
+toml = "*"
 
 [requires]
 python_version = "3.7"

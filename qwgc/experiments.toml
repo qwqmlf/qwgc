@@ -1,14 +1,14 @@
 title = 'Hypter parameters of qwgc'
 
 [pso]
-Cp = 1.1
-Cg = 1.4
+Cp = 2.3
+Cg = 1.9
 particles = 15
 iterations = 150
 w = 0.7
 random_max = 1.0
 layers = 2
-lambda = 0.001
+lambda = 0.0001
 
 [qw]
 steps = 5

@@ -5,8 +5,8 @@
 
 <img src="./image/qwgc_logo.png" width="300" height="300">
 
-qwgc is stand for *Q*uantum *W*alk *G*raph *C*lassifier.
-This project aim to classify graph data with high accuracy.
+qwgc stands for *Q*uantum *W*alk *G*raph *C*lassifier.
+This project aims to classify graph data with high accuracy.
 The key ideas of quantum machine learning and quantum walk are [here](https://qwqmlft.github.io/QuantumFrontier).
 <!-- put the link to our web site -->
 
@@ -20,28 +20,14 @@ First, clone remote repository to your local.
 
 and then,
 
-```
+```zsh
 cd qwgc
 pip install .
 ```
 
 If you don't have any errors, your build is success.
 
-## pipenv environment
-
-If you have trouble with installing qwgc, you can use virtual environment easily with *[pipenv](https://github.com/pypa/pipenv)*.
-
-You can install pipenv via`pip` or package manager of your OS (brew etc... detail:https://github.com/pypa/pipenv)
-
-```
-pip install pipenv
-cd qwgc
-pipenv install
-```
-
-and then you can all dependencies in your virtual environment.
-
-## How to use?
+## How to use
 
 [experiments.toml](https://github.com/qwqmlf/qwgc/blob/master/qwgc/experiments.toml) is the configuration (Hyper parameter) for QWGC.
 

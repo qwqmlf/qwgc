@@ -37,6 +37,16 @@ You can install pipenv via`pip` or package manager of your OS (brew etc... detai
 
 and then you can all dependencies in your virtual environment.
 
+## How to use?
+
+[experiments.toml](https://github.com/qwqmlf/qwgc/blob/master/qwgc/experiments.toml) is the configuration (Hyper parameter) for QWGC.
+
+Put hyper parameter and then run  
+
+`python QWGC.py`  
+
+You can simulate our algorithm.
+
 ## Tutorials
 
 [Here](./notebook/tutorial.ipynb) is the tutorials how to use this.
@@ -44,3 +54,4 @@ and then you can all dependencies in your virtual environment.
 ## Acknowledgement
 
 This project is supported by IPA mitou target project.
+

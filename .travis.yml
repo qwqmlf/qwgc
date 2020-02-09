@@ -1,0 +1,15 @@
+language: python
+
+dist: bionic
+
+python:
+  - 3.6
+
+install:
+  - pip install -e .
+
+script:
+  # This repository has NOT had tests
+  # but Travis CI wouldn't allow us not to write
+  # `script` so we run this meaning less command to avoid CI errors.
+  - echo "TODO"

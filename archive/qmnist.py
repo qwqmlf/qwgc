@@ -171,7 +171,7 @@ if __name__ == '__main__':
     qmnist = QMNIST(['01', '10'])
     onhot_labels = []
     for i in digits.target:
-        lab = [0 for _ in range(2)]
+        lab = [0 for _ in range(10)]
         lab[int(i)] = 1
         onhot_labels.append(lab)
     reducer = umap.UMAP(n_components=2)

@@ -172,11 +172,8 @@ if __name__ == '__main__':
     onhot_labels = []
     for i in digits.target:
         lab = [0 for _ in range(2)]
-        try:
-            lab[int(i)] = 1
-            onhot_labels.append(lab)
-        except:
-            continue
+        lab[int(i)] = 1
+        onhot_labels.append(lab)
     reducer = umap.UMAP(n_components=2)
     reducer.fit(digits.data)
     embedding = reducer.transform(digits.data)

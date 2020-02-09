@@ -12,7 +12,7 @@ The key ideas of quantum machine learning and quantum walk are [here](https://qw
 
 ## How to install
 
-**!!!!This installation might not work properly.**
+**This installation might not work properly.**
 
 First, clone remote repository to your local.
 
@@ -31,12 +31,13 @@ If you don't have any errors, your build is success.
 
 [experiments.toml](https://github.com/qwqmlf/qwgc/blob/master/qwgc/experiments.toml) is the configuration (Hyper parameter) for QWGC.
 
-Put hyper parameter and then run
-`python QWGC.py`
+Put hyper parameters and then run
+`python QWGC.py`  
+(This simulation may take a long time to finish)
 
 ## Tutorials
 
-[Here](./notebook/tutorial.ipynb) is the tutorials how to use this.
+[Here](./notebook/tutorial.ipynb) is the tutorials how to use this (Japanese).
 
 ## Acknowledgement
 

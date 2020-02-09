@@ -114,10 +114,11 @@ class QMNIST:
                 qc.h(qr)
                 qc.rz(self._map_func(xd), qr)
             # anzatz
-            for ith, th in enumerate(theta):
-                qc.ry(th, dataq[ith])
-            for ids, d in enumerate(dataq[:-1]):
-                qc.cz(d, dataq[ids+1])
+            for r in range(4):
+                for ith, th in enumerate(theta):
+                    qc.ry(th, dataq[ith])
+                for ids, d in enumerate(dataq[:-1]):
+                    qc.cz(d, dataq[ids+1])
             qc.cz(dataq[0], dataq[-1])
             qc.measure(dataq, c)
             qcs.append(qc)

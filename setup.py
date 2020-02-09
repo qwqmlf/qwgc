@@ -7,7 +7,7 @@ discription = "qwgc is a quantum walk graph classifier \
                for classification for Graph data."
 setup(
     name="qwgc",
-    version="0.0.1",
+    version="0.0.3",
     description="Graph classifier based on quantum walk",
     long_description=discription,
     url="https://Chibikuri.github.io/qwgc",

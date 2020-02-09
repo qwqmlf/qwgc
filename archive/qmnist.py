@@ -162,19 +162,19 @@ if __name__ == '__main__':
     #                  '0001000000', '0010000000',
     #                  '0100000000', '1000000000'])
 
-    # qmnist = QMNIST(['0000', '1000',
-    #                  '0001', '1001',
-    #                  '0010', '1010',
-    #                  '0100', '1101',
-    #                  '0101', '1111'])
+    qmnist = QMNIST(['0000', '1000',
+                     '0001', '1001',
+                     '0010', '1010',
+                     '0100', '1101',
+                     '0101', '1111'])
 
-    qmnist = QMNIST(['01', '10'])
+    # qmnist = QMNIST(['01', '10'])
     onhot_labels = []
     for i in digits.target:
         lab = [0 for _ in range(10)]
         lab[int(i)] = 1
         onhot_labels.append(lab)
-    reducer = umap.UMAP(n_components=2)
+    reducer = umap.UMAP(n_components=4)
     reducer.fit(digits.data)
     embedding = reducer.transform(digits.data)
     # Verify that the result of calling transform is

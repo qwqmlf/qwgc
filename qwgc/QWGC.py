@@ -200,7 +200,7 @@ class QWGC:
             accuracy.append(accs)
             if t % 10 == 0 and notify:
                 Notify.notify_error(t, error, accs)
-            if error < 0.41:
+            if error < 0.40:
                 break
         convergence = [errors, accuracy]
         return grobal_best_pos, grobal_best_coin, convergence

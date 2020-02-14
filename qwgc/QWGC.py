@@ -202,6 +202,12 @@ class QWGC:
                 Notify.notify_error(t, error, accs)
             if error < 0.40:
                 break
+            if errors[-2] < error[-1]:
+                # print(particles)
+                reseter = np.array([random.uniform(-pi/4, pi) for _ in range(theta_size)])
+                # print('reseter', reseter, 'best particle', best_particle)
+                particles = np.array([p+reseter for i, p in enumerate(particles) if i != best_particle])
+                # print(particles)
         convergence = [errors, accuracy]
         return grobal_best_pos, grobal_best_coin, convergence
 

@@ -122,8 +122,8 @@ class QWGC:
                           for n in range(self.n_particle)])
 
         # initialize particles
-        particles = np.array([[random.uniform(THETA_MIN, THETA_MAX)
-                             for i in range(theta_size)]
+        particles = np.array([np.array([random.uniform(THETA_MIN, THETA_MAX)
+                             for i in range(theta_size)])
                              for n in range(self.n_particle)])
         velocities = np.array([np.zeros(theta_size)
                               for n in range(self.n_particle)])

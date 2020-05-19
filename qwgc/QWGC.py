@@ -145,6 +145,7 @@ class QWGC:
         # to check convergence of error, prepare this list
         errors = []
         accuracy = []
+        flag = 1
         for t in trange(self.T, desc='training'):
             ampdata = [QWfilter(coin_u3s[n], self.step,
                        self.initial).amplitude(train_data)
@@ -161,19 +162,18 @@ class QWGC:
                 rnp_c = random.uniform(0, self.ro_max)
                 rng_c = random.uniform(0, self.ro_max)
 
-                # update position
-                particles[n] = particles[n] + velocities[n]
-                # update coin pos
-
-                coin_u3s[n] = coin_u3s[n] + coin_v[n]
-
-                velocities[n] = (self.w*velocities[n] +
-                                 self.Cp*rnp*(personal_bpos[n]-particles[n]) +
-                                 self.Cg*rng*(grobal_best_pos-particles[n]))
-
-                coin_v[n] = (self.w*coin_v[n] +
-                             self.Cp*rnp_c*(personal_cbpos[n]-coin_u3s[n]) +
-                             self.Cg*rng_c*(grobal_best_coin-coin_u3s[n]))
+                # update positions parameter
+                if flag > 0:
+                    particles[n] = particles[n] + velocities[n]
+                    velocities[n] = (self.w*velocities[n] +
+                                     self.Cp*rnp*(personal_bpos[n]-particles[n]) +
+                                     self.Cg*rng*(grobal_best_pos-particles[n]))
+                else:
+                    # update coins
+                    coin_u3s[n] = coin_u3s[n] + coin_v[n]
+                    coin_v[n] = (self.w*coin_v[n] +
+                                 self.Cp*rnp_c*(personal_cbpos[n]-coin_u3s[n]) +
+                                 self.Cg*rng_c*(grobal_best_coin-coin_u3s[n]))
 
                 # calculation cost with updated parameters
                 # and update best position and score
@@ -199,8 +199,10 @@ class QWGC:
             errors.append(error)
             accuracy.append(accs)
             print(error, accs)
-            if t % 10 == 0 and notify:
-                Notify.notify_error(t, error, accs)
+            if t % 10 == 0:
+                flag *= -1
+                if notify:
+                    Notify.notify_error(t, error, accs)
             if error < 0.40:
                 break
             # if t > 10 and np.mean(errors[-10:-1]) < errors[-1]:

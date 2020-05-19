@@ -1,8 +1,12 @@
 import numpy as np
+import random
+import copy
 import itertools
 
 from grakel import Graph
 from .qwalk import QuantumWalk
+
+np.set_printoptions(linewidth=100000)
 
 
 class QWfilter:
@@ -20,20 +24,94 @@ class QWfilter:
         adjacency = [Graph(d[0]).get_adjacency_matrix() for d in data]
         amplitude = []
         for ad in adjacency:
-            count = np.count_nonzero(ad)//2
-            nad = len(ad)
-
-            # prepare coin with u3 parameter
-            coin = self._compose_coins(count, ad)
-            # prepare initial state
-            initial_state = self._initial(count, nad)
-
-            # construct quantum walk and go n steps
-            qwalk = QuantumWalk(initial_state, coin, ad)
-            qwalk.n_steps(self.step)
-
-            amplitude.append(qwalk.calc_amp())
+            # amp = self.coin_walk(ad)
+            amp = self.szegedy_google(ad)
+            amplitude.append(amp)
         return amplitude
+    
+    def coin_walk(self, ad):
+        count = np.count_nonzero(ad)//2
+        nad = len(ad)
+        # prepare coin with u3 parameter
+        coin = self._compose_coins(count, ad)
+        # prepare initial state
+        initial_state = self._initial(count, nad)
+
+        # construct quantum walk and go n steps
+        qwalk = QuantumWalk(initial_state, coin, ad)
+        qwalk.n_steps(self.step)
+        amplitude = qwalk.calc_amp()
+        return amplitude
+
+    def szegedy_google(self, adjacency):
+        """
+        quantum pagerank
+        """
+        G = google_matrix(adjacency)
+        initial = 1/2*np.array([np.sqrt(G[j][i])
+                                for i, _ in enumerate(G)
+                                for j, _ in enumerate(G)])
+        print(sum([abs(i)**2 for i in initial]))
+        Pi_op = self._Pi_operator(G)
+        print(is_unitary(Pi_op))
+        swap = self._swap_operator(len(G))
+        print(is_unitary(swap))
+        operator = (2*Pi_op) - np.identity(len(Pi_op))
+        Szegedy = np.dot(operator, swap)
+        Szegedy_n = copy.deepcopy(Szegedy)
+        if self.step == 0:
+            return initial
+        elif self.step == 1:
+            amp = np.dot(Szegedy, self.initial)
+            return amp
+        else:
+            for n in range(self.step-1):
+                Szegedy_n = np.dot(Szegedy_n, Szegedy)
+            amp = np.dot(Szegedy_n, initial)
+            return amp
+
+    def _Pi_operator(self, ptran):
+        '''
+        This is not a quantum operation,
+        just returning matrix
+        '''
+        lg = len(ptran)
+        psi_op = []
+        count = 0
+        for i in range(lg):
+            psi_vec = [0 for _ in range(lg**2)]
+            for j in range(lg):
+                psi_vec[count] = np.sqrt(ptran[j][i])
+                count += 1
+            psi_op.append(np.kron(np.array(psi_vec).T,
+                          np.conjugate(psi_vec)).reshape((lg**2, lg**2)))
+        Pi = psi_op[0]
+        for i in psi_op[1:]:
+            Pi = np.add(Pi, i)
+        return Pi
+
+    def _swap_operator(self, lad):
+        # find closest 2 pow
+        base = int(np.ceil(np.log2((1 << int(np.ceil(np.log2(lad)))))))
+        swap = np.zeros((lad**2, lad**2))
+        for i in range(lad):
+            # ibin = format(i, '0%db' % base)
+            for j in range(lad):
+                # jbin = format(j, '0%db' % base)
+                # a = int(ibin + jbin, 2)
+                # b = int(jbin + ibin, 2)
+                ai = np.array([1 if t == i else 0 for t in range(lad)])
+                bi = np.conjugate(np.array([1 if k == j else 0 for k in range(lad)]).T)
+                swap += np.kron(ai, bi)
+        # raise Exception("")
+        return swap
+
+    def _reform(self, ad):
+        for il, ln in enumerate(ad):
+            rd = random.choice([i for i, _ in enumerate(ln) if i != il])
+            if sum(ln) == 1:
+                ad[il][rd] = 1
+        return ad
 
     def single_amplitude(self, d):
         ad = Graph(d[0]).get_adjacency_matrix()
@@ -50,7 +128,7 @@ class QWfilter:
         qwalk.n_steps(self.step)
         amplitude = qwalk.calc_amp()
         return amplitude
-    
+
     def single_prob(self, d):
         ad = Graph(d[0]).get_adjacency_matrix()
         count = np.count_nonzero(ad)//2
@@ -140,3 +218,29 @@ def is_unitary(operator, tolerance=0.0001):
     product2 = np.dot(adjoint, operator)
     ida = np.eye(h)
     return np.allclose(product1, ida) & np.allclose(product2, ida)
+
+
+def prob_transition(graph, gtype='google'):
+    if gtype == 'google':
+        return google_matrix(graph)
+    else:
+        pmatrix = np.zeros(graph.shape)
+        indegrees = np.sum(graph, axis=0)
+        for ix, indeg in enumerate(indegrees):
+            if indeg == 0:
+                pmatrix[:, ix] = graph[:, ix]
+            else:
+                pmatrix[:, ix] = graph[:, ix]/indeg
+        return pmatrix
+
+
+def google_matrix(graph, alpha=0.85):
+    E = np.zeros((len(graph), len(graph)))
+    for i, t in enumerate(graph):
+        if sum(graph[:, i]) == 0:
+            E[:, i] = np.array([1/len(graph) for _ in graph])
+        else:
+            for ij, j in enumerate(t):
+                E[ij, i] = j/sum(graph[:, i])
+    G = alpha*E + (1-alpha)/(len(graph)) * np.ones((len(graph), len(graph)))
+    return G

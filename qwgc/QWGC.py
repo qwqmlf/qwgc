@@ -198,9 +198,10 @@ class QWGC:
                                       grobal_best_pos)
             errors.append(error)
             accuracy.append(accs)
+            print(error, accs)
             if t % 10 == 0 and notify:
                 Notify.notify_error(t, error, accs)
-            if error < 0.38:
+            if error < 0.40:
                 break
             # if t > 10 and np.mean(errors[-10:-1]) < errors[-1]:
             #     # print(particles)

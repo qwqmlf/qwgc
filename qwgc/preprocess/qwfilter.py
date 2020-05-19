@@ -24,8 +24,8 @@ class QWfilter:
         adjacency = [Graph(d[0]).get_adjacency_matrix() for d in data]
         amplitude = []
         for ad in adjacency:
-            # amp = self.coin_walk(ad)
-            amp = self.szegedy_google(ad)
+            amp = self.coin_walk(ad)
+            # amp = self.szegedy_google(ad)
             amplitude.append(amp)
         return amplitude
     

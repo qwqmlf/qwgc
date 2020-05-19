@@ -8,7 +8,7 @@ iterations = 300
 w = 0.7
 random_max = 1.2
 layers = 2
-lambda = 0.001
+lambda = 0.0005
 
 [qw]
 steps = 5

@@ -108,7 +108,8 @@ class QWGC:
         #                     for i in range(3)]
         #                     for n in range(self.n_particle)])
         coin_u3s = np.array([[random.uniform(THETA_MIN, THETA_MAX),
-                              0, 0]
+                              random.uniform(THETA_MIN, THETA_MAX),
+                              random.uniform(THETA_MIN, THETA_MAX)]
                             for n in range(self.n_particle)])
 
         ampdata = [QWfilter(coin_u3s[n], self.step,
@@ -163,17 +164,15 @@ class QWGC:
                 rng_c = random.uniform(0, self.ro_max)
 
                 # update positions parameter
-                if flag > 0:
-                    particles[n] = particles[n] + velocities[n]
-                    velocities[n] = (self.w*velocities[n] +
-                                     self.Cp*rnp*(personal_bpos[n]-particles[n]) +
-                                     self.Cg*rng*(grobal_best_pos-particles[n]))
-                else:
-                    # update coins
-                    coin_u3s[n] = coin_u3s[n] + coin_v[n]
-                    coin_v[n] = (self.w*coin_v[n] +
-                                 self.Cp*rnp_c*(personal_cbpos[n]-coin_u3s[n]) +
-                                 self.Cg*rng_c*(grobal_best_coin-coin_u3s[n]))
+                particles[n] = particles[n] + velocities[n]
+                velocities[n] = (self.w*velocities[n] +
+                                 self.Cp*rnp*(personal_bpos[n]-particles[n]) +
+                                 self.Cg*rng*(grobal_best_pos-particles[n]))
+                # update coins
+                coin_u3s[n] = coin_u3s[n] + coin_v[n]
+                coin_v[n] = (self.w*coin_v[n] +
+                             self.Cp*rnp_c*(personal_cbpos[n]-coin_u3s[n]) +
+                             self.Cg*rng_c*(grobal_best_coin-coin_u3s[n]))
 
                 # calculation cost with updated parameters
                 # and update best position and score

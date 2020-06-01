@@ -108,8 +108,7 @@ class QWGC:
         #                     for i in range(3)]
         #                     for n in range(self.n_particle)])
         coin_u3s = np.array([[random.uniform(THETA_MIN, THETA_MAX),
-                              random.uniform(THETA_MIN, THETA_MAX),
-                              0]
+                              0, 0]
                             for n in range(self.n_particle)])
 
         ampdata = [QWfilter(coin_u3s[n], self.step,

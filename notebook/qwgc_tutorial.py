@@ -47,6 +47,7 @@ data_x, data_y = np.array(Data.data), np.array(Data.target)
 subtract = 0
 lens = []
 for d, l in zip(data_x[:10], data_y[:10]):
+    print(l)
     plt.figure(figsize=(10, 10))
     G = nx.DiGraph()
     connection = d[0]

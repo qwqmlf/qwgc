@@ -168,7 +168,10 @@ class QWGC:
                                  self.Cp*rnp*(personal_bpos[n]-particles[n]) +
                                  self.Cg*rng*(grobal_best_pos-particles[n]))
                 # update coins
-                coin_u3s[n] = coin_u3s[n] + coin_v[n]
+                # coin_u3s[n] = coin_u3s[n] + coin_v[n]
+                # No coin update
+                coin_u3s[n] = coin_u3s[n]
+
                 coin_v[n] = (self.w*coin_v[n] +
                              self.Cp*rnp_c*(personal_cbpos[n]-coin_u3s[n]) +
                              self.Cg*rng_c*(grobal_best_coin-coin_u3s[n]))

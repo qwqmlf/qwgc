@@ -65,7 +65,7 @@ for d, l in zip(data_x[:10], data_y[:10]):
     subtract = max(d[1].keys())
     G.add_nodes_from(nodes)
     G.add_weighted_edges_from(edges)
-    pos = nx.spring_layout(G)
+    pos = nx.kamada_kawai_layout(G)
     edge_labels = {(i, j): w['weight'] for i, j, w in G.edges(data=True)}
     nx.draw_networkx_edge_labels(G, pos, edge_labels=edge_labels)
     nx.draw_networkx(G, pos, with_labels=True, alpha=0.8)

@@ -41,6 +41,7 @@ class QWfilter:
         qwalk = QuantumWalk(initial_state, coin, ad)
         qwalk.n_steps(self.step)
         amplitude = qwalk.calc_amp()
+        # print(list(amplitude))
         return amplitude
 
     def szegedy_google(self, adjacency):

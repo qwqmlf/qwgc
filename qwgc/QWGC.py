@@ -144,6 +144,7 @@ class QWGC:
         best_particle = np.argmin(personal_best_scores)
         grobal_best_pos = personal_bpos[best_particle]
         grobal_best_coin = coin_u3s[best_particle]
+        print(train_label)
 
         print('training start!')
         # start training

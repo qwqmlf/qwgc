@@ -60,6 +60,8 @@ class ClassifierCircuit:
             c = ClassicalRegister(layer)
             qc = QuantumCircuit(qr, mp, c, name='data%d' % index)
             qc.initialize(d, qr)
+            job = execute(qc, backend=Aer.get_backend("statevector_simulator"))
+            print(list(job.result().get_statevector(qc)))
             qc = self._map(qc, qr, mp)
             qc.measure(mp, c)
             qcs.append(qc)

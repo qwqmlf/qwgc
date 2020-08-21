@@ -89,7 +89,7 @@ class QWGC:
         self.lamb = lamb
         self.initial = initial
 
-    def optimize(self, train_data, train_label):
+    def optimize(self, train_data, train_label, coin_update=True):
         '''
         Input:
             train_data: 2dim array (a series of training data)
@@ -107,9 +107,13 @@ class QWGC:
         # coin_u3s = np.array([[random.uniform(THETA_MIN, THETA_MAX)
         #                     for i in range(3)]
         #                     for n in range(self.n_particle)])
-        coin_u3s = np.array([[random.uniform(THETA_MIN, THETA_MAX),
-                              0, 0]
-                            for n in range(self.n_particle)])
+        if coin_update:
+            coin_u3s = np.array([[random.uniform(THETA_MIN, THETA_MAX),
+                                0, 0]
+                                for n in range(self.n_particle)])
+        else:
+            coin_u3s = np.array([[pi/2, pi/2, 0]
+                                for n in range(self.n_particle)])
 
         ampdata = [QWfilter(coin_u3s[n], self.step,
                             self.initial).amplitude(train_data)
@@ -123,8 +127,9 @@ class QWGC:
 
         # initialize particles
         particles = np.array([np.array([random.uniform(THETA_MIN, THETA_MAX)
-                             for i in range(theta_size)])
-                             for n in range(self.n_particle)])
+                                for i in range(theta_size)])
+                                for n in range(self.n_particle)])
+
         velocities = np.array([np.zeros(theta_size)
                               for n in range(self.n_particle)])
         coin_v = np.array([np.zeros(3) for n in range(self.n_particle)])
@@ -170,11 +175,12 @@ class QWGC:
                 # update coins
                 # coin_u3s[n] = coin_u3s[n] + coin_v[n]
                 # No coin update
-                coin_u3s[n] = coin_u3s[n]
+                if coin_update:
+                    coin_u3s[n] = coin_u3s[n] + coin_v[n]
 
-                coin_v[n] = (self.w*coin_v[n] +
-                             self.Cp*rnp_c*(personal_cbpos[n]-coin_u3s[n]) +
-                             self.Cg*rng_c*(grobal_best_coin-coin_u3s[n]))
+                    coin_v[n] = (self.w*coin_v[n] +
+                                self.Cp*rnp_c*(personal_cbpos[n]-coin_u3s[n]) +
+                                self.Cg*rng_c*(grobal_best_coin-coin_u3s[n]))
 
                 # calculation cost with updated parameters
                 # and update best position and score

@@ -28,9 +28,10 @@ class QuantumWalk:
         self.shift_operator = gf.shift()
         self.time_ev = np.dot(self.shift_operator, coin_operator)
         eigs, _ = la.eig(self.time_ev)
-        print(len(eigs) == len(set(eigs)))
-        if not len(eigs) == len(set(eigs)):
-            print(eigs) 
+        # print(len(eigs) == len(set(eigs)))
+        # if not len(eigs) == len(set(eigs)):
+            # print(eigs) 
+            pass
         if initial_state is None:
             self.create_default_initial()
         else:

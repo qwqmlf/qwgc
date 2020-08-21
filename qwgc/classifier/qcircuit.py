@@ -2,6 +2,7 @@ from qiskit import QuantumCircuit, QuantumRegister, ClassicalRegister
 from qiskit import Aer, execute
 from scipy.special import softmax
 
+from utils.notification import Notify
 import numpy as np
 from numpy import pi
 
@@ -42,7 +43,7 @@ class ClassifierCircuit:
             raise Warning('The length of theta is shorter \
                            than the number of layers')
 
-    def _circuit_constructor(self, visualize=False):
+    def _circuit_constructor(self, visualize=False, notify=False):
         '''
         returning circuits
         TODO
@@ -52,6 +53,8 @@ class ClassifierCircuit:
         qcs = []
         nq = self.qsize
         layer = self.layers
+        if notify:
+            Notify.notify_accs(self.data[0], self.data[-1])
         for index, d in enumerate(self.data):
             # qubits for representing data
             qr = QuantumRegister(nq)
@@ -61,7 +64,6 @@ class ClassifierCircuit:
             qc = QuantumCircuit(qr, mp, c, name='data%d' % index)
             qc.initialize(d, qr)
             job = execute(qc, backend=Aer.get_backend("statevector_simulator"))
-            print(list(job.result().get_statevector(qc)))
             qc = self._map(qc, qr, mp)
             qc.measure(mp, c)
             qcs.append(qc)
@@ -78,7 +80,7 @@ class ClassifierCircuit:
             #     qc.h(mp[ith%self.layers])
         return qc
 
-    def cost(self):
+    def cost(self, notify=False):
         '''
         This function is the interface to pass through
         the result of measurement
@@ -87,7 +89,7 @@ class ClassifierCircuit:
         Output:
             result of measurement
         '''
-        qcs = self._circuit_constructor()
+        qcs = self._circuit_constructor(notify=notify)
         probs = self._get_result(qcs)
         cross = np.mean([self._cross_entropy_error(pb, lb)
                         for pb, lb in zip(probs, self.label)])

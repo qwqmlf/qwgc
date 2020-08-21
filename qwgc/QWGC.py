@@ -137,7 +137,7 @@ class QWGC:
         # for recording best positions of each particle
         personal_bpos = copy.copy(particles)
         personal_cbpos = copy.copy(coin_u3s)
-        personal_best_scores = [self._get_cost(amps, train_label, theta)
+        personal_best_scores = [self._get_cost(amps, train_label, theta, notify=False)
                                 for amps, theta in zip(n_amp, particles)]
 
         # recording best position of all particles
@@ -201,7 +201,10 @@ class QWGC:
                                      self.initial).amplitude(train_data)
             n_best_amp = [self._zero_fill(amp, 2**theta_size)
                           for amp in best_amp_data]
-            error = self._get_cost(n_best_amp, train_label, grobal_best_pos)
+            if t % 10 == 0:
+                error = self._get_cost(n_best_amp, train_label, grobal_best_pos, notify=True)
+            else:
+                error = self._get_cost(n_best_amp, train_label, grobal_best_pos, notify=False)
             accs = self._get_accuracy(n_best_amp, train_label,
                                       grobal_best_pos)
             errors.append(error)
@@ -222,9 +225,9 @@ class QWGC:
         convergence = [errors, accuracy]
         return grobal_best_pos, grobal_best_coin, convergence
 
-    def _get_cost(self, data, label, theta):
+    def _get_cost(self, data, label, theta, notify=False):
         cost = ClassifierCircuit(data, label, theta, self.n_class,
-                                 self.layers, self.encoder).cost()
+                                 self.layers, self.encoder).cost(notify=notify)
 
         error = cost + self.lamb*np.sum([i**2 for i in theta])
         return error

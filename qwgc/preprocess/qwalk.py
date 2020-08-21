@@ -31,7 +31,7 @@ class QuantumWalk:
         # print(len(eigs) == len(set(eigs)))
         # if not len(eigs) == len(set(eigs)):
             # print(eigs) 
-            pass
+            # pass
         if initial_state is None:
             self.create_default_initial()
         else:

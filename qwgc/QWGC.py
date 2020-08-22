@@ -316,7 +316,7 @@ if __name__ == '__main__':
 
     acclist = []
     k = 10
-    kf = KFold(n_splits=k, shaffle=False)
+    kf = KFold(n_splits=k, shuffle=False)
 
     qwgc = QWGC(['01', '10'], Cp=p_pso['Cp'], Cg=p_pso['Cg'],
                 n_particle=p_pso['particles'], T=p_pso['iterations'],

@@ -316,7 +316,7 @@ if __name__ == '__main__':
 
     acclist = []
     k = 10
-    kf = KFold(n_splits=k)
+    kf = KFold(n_splits=k, shaffle=False)
 
     qwgc = QWGC(['01', '10'], Cp=p_pso['Cp'], Cg=p_pso['Cg'],
                 n_particle=p_pso['particles'], T=p_pso['iterations'],
@@ -328,6 +328,7 @@ if __name__ == '__main__':
         # preprocessing for generating data.
         x_train, y_train = data_x[train_index], data_y[train_index]
         x_test, y_test = data_x[test_index], data_y[test_index]
+        Notify.notify_accs("class%d" % y_train[0], "class%d" % y_train[-1])
 
         # one hot encoding
         y_train = one_hot_encoder(y_train, 2)

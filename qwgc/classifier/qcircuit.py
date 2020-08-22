@@ -54,7 +54,7 @@ class ClassifierCircuit:
         nq = self.qsize
         layer = self.layers
         if notify:
-            Notify.notify_accs(self.data[0], self.data[-1])
+            Notify.notify_accs(list(self.data[0]), list(self.data[-1]))
         for index, d in enumerate(self.data):
             # qubits for representing data
             qr = QuantumRegister(nq)

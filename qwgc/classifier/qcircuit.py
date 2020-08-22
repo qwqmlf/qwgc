@@ -63,7 +63,6 @@ class ClassifierCircuit:
             c = ClassicalRegister(layer)
             qc = QuantumCircuit(qr, mp, c, name='data%d' % index)
             qc.initialize(d, qr)
-            job = execute(qc, backend=Aer.get_backend("statevector_simulator"))
             qc = self._map(qc, qr, mp)
             qc.measure(mp, c)
             qcs.append(qc)
@@ -90,7 +89,7 @@ class ClassifierCircuit:
             result of measurement
         '''
         qcs = self._circuit_constructor(notify=notify)
-        probs = self._get_result(qcs)
+        probs = self._get_result(qcs, notify=notify)
         cross = np.mean([self._cross_entropy_error(pb, lb)
                         for pb, lb in zip(probs, self.label)])
         return cross
@@ -104,13 +103,15 @@ class ClassifierCircuit:
             answers[ipb][ind] = 1
         return answers
 
-    def _get_result(self, qcs):
+    def _get_result(self, qcs, notify=False):
         '''
         returning probabilities of estimation
         '''
         job = execute(qcs, backend=QASM, shots=self.shots)
         counts = [job.result().get_counts(qc) for qc in qcs]
         dinom = [sum([cs.get(i, 0) for i in self.encoder]) for cs in counts]
+        if notify:
+            Notify.notify_accs("After Classify", [v/dinom[0] for _, v in counts[0].items()])
         enc_probs = [np.array([cs.get(i, 0)/(din+1e-10) for i in self.encoder])
                      for cs, din in zip(counts, dinom)]
         return enc_probs

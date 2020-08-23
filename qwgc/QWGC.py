@@ -318,7 +318,7 @@ if __name__ == '__main__':
     k = 10
     kf = KFold(n_splits=k, shuffle=False)
 
-    qwgc = QWGC(['01', '10'], Cp=p_pso['Cp'], Cg=p_pso['Cg'],
+    qwgc = QWGC(['00', '11'], Cp=p_pso['Cp'], Cg=p_pso['Cg'],
                 n_particle=p_pso['particles'], T=p_pso['iterations'],
                 w=p_pso['w'], ro_max=p_pso['random_max'],
                 n_layer=p_pso['layers'], lamb=p_pso['lambda'],

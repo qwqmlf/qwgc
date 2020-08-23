@@ -111,8 +111,9 @@ class ClassifierCircuit:
         counts = [job.result().get_counts(qc) for qc in qcs]
         dinom = [sum([cs.get(i, 0) for i in self.encoder]) for cs in counts]
         if notify:
-            Notify.notify_accs("After Classify data0", [v/sum(counts[0].values()) for _, v in counts[0].items()])
-            Notify.notify_accs("After Classify data last", [v/sum(counts[-1].values()) for _, v in counts[-1].items()])
+            bins = [format(i, "02b") for i in range(4)]
+            Notify.notify_accs("After Classify data0", [counts[0].get(b, 0)/sum(counts[0].values()) for b in bins)
+            Notify.notify_accs("After Classify data last", [counts[-1].get(b, 0)/sum(counts[-1].values()) for b in bins)
         enc_probs = [np.array([cs.get(i, 0)/(din+1e-10) for i in self.encoder])
                      for cs, din in zip(counts, dinom)]
         return enc_probs

@@ -63,6 +63,7 @@ class ClassifierCircuit:
             c = ClassicalRegister(layer)
             qc = QuantumCircuit(qr, mp, c, name='data%d' % index)
             qc.initialize(d, qr)
+            qc.h(qr)
             qc = self._map(qc, qr, mp)
             qc.measure(mp, c)
             qcs.append(qc)

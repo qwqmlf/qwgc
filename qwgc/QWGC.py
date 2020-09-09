@@ -89,7 +89,7 @@ class QWGC:
         self.lamb = lamb
         self.initial = initial
 
-    def optimize(self, train_data, train_label, coin_update=True):
+    def optimize(self, train_data, train_label, coin_update=False):
         '''
         Input:
             train_data: 2dim array (a series of training data)

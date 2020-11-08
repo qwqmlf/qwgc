@@ -1,6 +1,7 @@
 import numpy as np
 import random
 import copy
+import time
 
 from numpy import pi
 from tqdm import trange
@@ -153,10 +154,11 @@ class QWGC:
         errors = []
         accuracy = []
         flag = 1
-        for nap in n_amp:
+        for nap in n_amp[best_particle]:
             for n in nap:
                 Notify.notify_accs(n, "")
                 print(n)
+                time.sleep(1)
         for t in trange(self.T, desc='training'):
             ampdata = [QWfilter(coin_u3s[n], self.step,
                        self.initial).amplitude(train_data)
@@ -227,10 +229,11 @@ class QWGC:
             #     # print('reseter', reseter, 'best particle', best_particle)
             #     particles = np.array([p+reseter for i, p in enumerate(particles) if i != best_particle])
             #     # print(particles)
-        for nap in n_amp:
+        for nap in n_amp[best_particle]:
             for n in nap:
                 Notify.notify_accs(n, "")
                 print(n)
+                time.sleep(1)
         convergence = [errors, accuracy]
         return grobal_best_pos, grobal_best_coin, convergence
 

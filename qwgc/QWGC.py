@@ -222,6 +222,7 @@ class QWGC:
             #     # print('reseter', reseter, 'best particle', best_particle)
             #     particles = np.array([p+reseter for i, p in enumerate(particles) if i != best_particle])
             #     # print(particles)
+        Notify.notify_accs(n_amp, "This is amplitude of last")
         convergence = [errors, accuracy]
         return grobal_best_pos, grobal_best_coin, convergence
 

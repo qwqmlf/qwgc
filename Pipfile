@@ -7,7 +7,6 @@ verify_ssl = true
 
 [packages]
 qiskit = "*"
-sklearn = "*"
 tqdm = "*"
 umap-learn = "*"
 grakel-dev = "==0.1a6"
@@ -15,6 +14,7 @@ autopep8 = "*"
 seaborn = "*"
 toml = "*"
 slackweb = "*"
+grakel = "==0.1b7"
 
 [requires]
 python_version = "3.7"

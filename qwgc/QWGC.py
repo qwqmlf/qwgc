@@ -152,6 +152,7 @@ class QWGC:
         errors = []
         accuracy = []
         flag = 1
+        Notify.notify_accs(n_amp, "This is amplitude first") 
         for t in trange(self.T, desc='training'):
             ampdata = [QWfilter(coin_u3s[n], self.step,
                        self.initial).amplitude(train_data)

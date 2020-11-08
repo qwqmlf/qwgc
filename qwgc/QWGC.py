@@ -152,7 +152,8 @@ class QWGC:
         errors = []
         accuracy = []
         flag = 1
-        Notify.notify_accs(n_amp, "This is amplitude first") 
+        for nap in n_amp:
+            Notify.notify_accs(nap, "This is amplitude first") 
         for t in trange(self.T, desc='training'):
             ampdata = [QWfilter(coin_u3s[n], self.step,
                        self.initial).amplitude(train_data)
@@ -223,7 +224,8 @@ class QWGC:
             #     # print('reseter', reseter, 'best particle', best_particle)
             #     particles = np.array([p+reseter for i, p in enumerate(particles) if i != best_particle])
             #     # print(particles)
-        Notify.notify_accs(n_amp, "This is amplitude of last")
+        for nap in n_amp:
+            Notify.notify_accs(nap, "This is amplitude last") 
         convergence = [errors, accuracy]
         return grobal_best_pos, grobal_best_coin, convergence
 

@@ -144,7 +144,7 @@ class QWGC:
         best_particle = np.argmin(personal_best_scores)
         grobal_best_pos = personal_bpos[best_particle]
         grobal_best_coin = coin_u3s[best_particle]
-        print(train_label)
+        # print(train_label)
 
         print('training start!')
         # start training
@@ -210,7 +210,7 @@ class QWGC:
                                       grobal_best_pos)
             errors.append(error)
             accuracy.append(accs)
-            print(error, accs)
+            # print(error, accs)
             if t % 10 == 0:
                 flag *= -1
                 if notify:
@@ -330,7 +330,7 @@ if __name__ == '__main__':
         # preprocessing for generating data.
         x_train, y_train = data_x[train_index], data_y[train_index]
         x_test, y_test = data_x[test_index], data_y[test_index]
-        Notify.notify_accs("class%d" % y_train[0], "class%d" % y_train[-1])
+        # Notify.notify_accs("class%d" % y_train[0], "class%d" % y_train[-1])
 
         # one hot encoding
         y_train = one_hot_encoder(y_train, 2)

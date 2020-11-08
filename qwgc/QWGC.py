@@ -20,6 +20,7 @@ try:
     notify = True
 except Exception:
     notify = False
+np.set_printoptions(threshold=10000)
 
 THETA_MIN, THETA_MAX = -pi, pi
 

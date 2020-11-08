@@ -15,6 +15,7 @@ seaborn = "*"
 toml = "*"
 slackweb = "*"
 grakel = "==0.1b7"
+cryptography = "*"
 
 [requires]
 python_version = "3.7"

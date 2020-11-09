@@ -156,9 +156,6 @@ class QWGC:
         flag = 1
         for nap in n_amp[best_particle]:
             print(nap)
-            for n in nap:
-                Notify.notify_accs(n, "")
-                time.sleep(1)
         for t in trange(self.T, desc='training'):
             ampdata = [QWfilter(coin_u3s[n], self.step,
                        self.initial).amplitude(train_data)
@@ -231,9 +228,6 @@ class QWGC:
             #     # print(particles)
         for nap in n_amp[best_particle]:
             print(nap)
-            for n in nap:
-                Notify.notify_accs(n, "")
-                time.sleep(1)
         convergence = [errors, accuracy]
         return grobal_best_pos, grobal_best_coin, convergence
 

@@ -65,7 +65,7 @@ class QWGC:
         '''
         if len(encoder[0]) != n_layer:
             raise ValueError('The size of encoder is different\
-                             from the number of layers')
+from the number of layers')
         self.encoder = encoder
         self.Cp = Cp
         self.Cg = Cg
@@ -74,16 +74,16 @@ class QWGC:
         # FIXME more efficient
         if T < 0:
             raise ValueError('The number of iterations must be \
-                             non negative value')
+non negative value')
         if n_particle < 0:
             raise ValueError('The number of particles must be\
-                             non negative value')
+non negative value')
         if n_layer <= 0:
             raise ValueError('The number of layers must be\
-                             one or over')
+one or over')
         if n_steps < 0:
             raise ValueError('The number of steps must be\
-                              zero or over')
+zero or over')
         self.T = T
         self.n_particle = n_particle
         self.layers = n_layer
@@ -304,7 +304,7 @@ def one_hot_encoder(label, n_class):
         if lb == -1:
             enc_label[ilb][0] = 1
         else:
-            enc_label[ilb][lb] = 1
+            enc_label[ilb][lb-1] = 1
     return enc_label
 
 
@@ -316,15 +316,16 @@ if __name__ == '__main__':
     p_pso = config['pso']
     p_qw = config['qw']
 
-    data_name = 'MUTAG'
+    data_name = 'ENZYMES'
     Data = datasets.fetch_dataset(data_name, verbose=False)
     data_x, data_y = np.array(Data.data), np.array(Data.target)
 
     acclist = []
     k = 10
-    kf = KFold(n_splits=k, shuffle=False)
+    kf = KFold(n_splits=k, shuffle=True, random_state=1)
 
-    qwgc = QWGC(['00', '11'], Cp=p_pso['Cp'], Cg=p_pso['Cg'],
+    qwgc = QWGC(['000001', '000010', '000100', '001000', '010000', '100000'],
+                Cp=p_pso['Cp'], Cg=p_pso['Cg'],
                 n_particle=p_pso['particles'], T=p_pso['iterations'],
                 w=p_pso['w'], ro_max=p_pso['random_max'],
                 n_layer=p_pso['layers'], lamb=p_pso['lambda'],
@@ -337,8 +338,9 @@ if __name__ == '__main__':
         # Notify.notify_accs("class%d" % y_train[0], "class%d" % y_train[-1])
 
         # one hot encoding
-        y_train = one_hot_encoder(y_train, 2)
-        y_test = one_hot_encoder(y_test, 2)
+        print(list(y_train))
+        y_train = one_hot_encoder(y_train, 6)
+        y_test = one_hot_encoder(y_test, 6)
 
         theta, coin_param, conv = qwgc.optimize(x_train, y_train)
         # test

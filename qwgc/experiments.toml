@@ -7,7 +7,7 @@ particles = 10
 iterations = 200
 w = 0.7
 random_max = 1.2
-layers = 2
+layers = 6
 lambda = 0.0005
 
 [qw]
